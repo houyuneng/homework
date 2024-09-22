@@ -1,0 +1,60 @@
+A = xlsread('data1.xls');
+%第一组分布
+B = xlsread('data2.xls');
+%第二组分布
+px1=1:4;py1=1:4;px2=1:4;py2=1:3;
+for i=1:4
+    px1(i)=sum(A(:,i));    
+    py1(i)=sum(A(i,:));
+    px2(i)=sum(B(:,i));
+end
+for i=1:3    
+    py2(i)=sum(B(i,:));
+end
+
+%规定log2（0）= 0
+a = A(:);
+for i = 1:16
+    if(a(i) ~= 0)
+        a(i) = log2(a(i));
+    end
+end
+
+b = B(:);
+for i = 1:12
+    if(b(i) ~= 0)
+        b(i) = log2(b(i));
+    end
+end
+%计算X和Y的熵
+H1_X=0;H1_Y=0;H2_X=0;H2_Y=0;
+for j=1:4
+    H1_X = H1_X - (px1)*log2(px1');
+    H2_X = H2_X - (px2)*log2(px2');
+    H1_Y = H1_X - (py1)*log2(py1');
+end
+for j=1:3
+    H2_Y = H2_Y - (py2)*log2(py2');
+end
+%计算X,Y的联合熵
+H1_X_Y = -( (A(:))' * a);
+H2_X_Y = -( (B(:))' * b);
+%计算条件熵
+H1_XY = H1_X_Y-H1_Y;
+H1_YX = H1_X_Y-H1_X;
+H2_XY = H2_X_Y-H1_Y;
+H2_YX = H2_X_Y-H1_X;
+%计算互信息量
+I1_XY=H1_X+H1_Y-H1_X_Y;
+I2_XY=H2_X+H2_Y-H2_X_Y;
+disp("第一组数据H(X)=");disp(H1_X);
+disp("第一组数据H(Y)=");disp(H1_Y);
+disp("第一组数据H(X|Y)=");disp(H1_XY);
+disp("第一组数据H(Y|X)=");disp(H1_YX);
+disp("第一组数据H(X,Y)=");disp(H1_X_Y);
+disp("第二组数据H(X)=");disp(H2_X);
+disp("第二组数据H(Y)=");disp(H2_Y);
+disp("第二组数据H(X|Y)=");disp(H2_XY);
+disp("第二组数据H(Y|X)=");disp(H2_YX);
+disp("第二组数据H(X,Y)=");disp(H2_X_Y);
+
