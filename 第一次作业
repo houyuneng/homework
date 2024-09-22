@@ -52,9 +52,11 @@ disp("第一组数据H(Y)=");disp(H1_Y);
 disp("第一组数据H(X|Y)=");disp(H1_XY);
 disp("第一组数据H(Y|X)=");disp(H1_YX);
 disp("第一组数据H(X,Y)=");disp(H1_X_Y);
+disp("第一组数据I(X,Y)=");disp(I1_XY);
 disp("第二组数据H(X)=");disp(H2_X);
 disp("第二组数据H(Y)=");disp(H2_Y);
 disp("第二组数据H(X|Y)=");disp(H2_XY);
 disp("第二组数据H(Y|X)=");disp(H2_YX);
 disp("第二组数据H(X,Y)=");disp(H2_X_Y);
+disp("第一组数据I(X,Y)=");disp(I2_XY);
 
