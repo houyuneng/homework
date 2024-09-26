@@ -1,0 +1,21 @@
+% 参数设置
+r = 3; % 红色球的数量
+w = 2; % 白色球的数量
+b = 4; % 黑色球的数量
+k = 5; % 抽取的球的数量
+
+% 有放回地抽取 k 个球的情况
+prob_with_replacement = (1/(r+w+b))^k; % 每种颜色球被抽取的概率相同
+entropy_with_replacement = -prob_with_replacement * log2(prob_with_replacement);
+
+% 无放回地抽取 k 个球的情况
+total_balls = r + w + b;
+prob_without_replacement = zeros(1, total_balls);
+for i = 1:k
+    prob_without_replacement(i) = nchoosek(total_balls-i, k-i) / nchoosek(total_balls, k);
+end
+entropy_without_replacement = -sum(prob_without_replacement(prob_without_replacement > 0) .* log2(prob_without_replacement(prob_without_replacement > 0)));
+
+% 输出结果
+fprintf('有放回地抽取 k 个球的情况下的熵: %.4f\n', entropy_with_replacement);
+fprintf('无放回地抽取 k 个球的情况下的熵: %.4f\n', entropy_without_replacement);
